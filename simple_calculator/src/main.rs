@@ -2,20 +2,31 @@ use std::io;
 use std::str::FromStr;
 
 fn main() {
-    println!("Enter the first number:");
-    let num1 = read_number();
+    loop {
+        println!("Enter the first number:");
+        let num1 = read_number();
 
-    println!("Enter the second number:");
-    let num2 = read_number();
+        println!("Enter the second number:");
+        let num2 = read_number();
 
-    println!("Enter the operation (+, -, *, /):");
-    let operation = read_operation();
+        println!("Enter the operation (+, -, *, /):");
+        let operation = read_operation();
 
-    let result = calculate(num1, num2, operation);
+        let result = calculate(num1, num2, operation);
 
-    match result {
-        Some(value) => println!("Result: {}", value),
-        None => println!("Invalid operation"),
+        match result {
+            Some(value) => println!("Result: {}", value),
+            None => println!("Invalid operation"),
+        }
+
+        println!("Do you want to perform another calculation? (yes/no):");
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).expect("Failed to read line");
+        let trimmed = input.trim().to_lowercase();
+
+        if trimmed != "yes" {
+            break;
+        }
     }
 }
 
